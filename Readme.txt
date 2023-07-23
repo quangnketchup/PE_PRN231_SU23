@@ -36,3 +36,5 @@ Sau khi đổi những cái trên tiếp tục Run with powershell
  	+sau khi thay thế tất cả thuộc tính với điều kiện check chữ hoa và chữ thường
 	+vào program.cs line 432 add thêm scope với codeRiengRepo đã chạy 
 Sau khi đổi những cái trên tiếp tục Run with powershell
+
+Import TestCase.Postman_collection.json vào thay đổi url và body cho phù hợp => sau đó run collection để chạy test trong tests tab 
