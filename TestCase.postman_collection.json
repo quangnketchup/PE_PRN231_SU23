@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "59946888-7c93-4f5e-9e9f-427ac08183ab",
+		"name": "TestCase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23096841"
+	},
+	"item": [
+		{
+			"name": "Get all Unauthorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 401 (Unauthorize)\r",
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:7027/odata/TattooStickers"
+			},
+			"response": []
+		},
+		{
+			"name": "Login Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200!\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"data is : 'UnAuthenticate'\", function (){\r",
+							"    pm.expect(pm.response.json().data).to.equal(\"UnAuthenticate\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberId\": 4425,\r\n  \"password\": \"@11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7027/api/Auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Login Succsess member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200!\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Message Body is : 'Get Token Successfully!'\", function (){\r",
+							"    pm.expect(pm.response.json().message).to.equal(\"Get Token Successfully!\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberId\": 4424,\r\n  \"password\": \"@2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7027/api/Auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Login Successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"TOKEN\", pm.response.json().data);\r",
+							"\r",
+							"pm.test(\"Status code is 200!\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Message Body is : 'Get Token Successfully!'\", function (){\r",
+							"    pm.expect(pm.response.json().message).to.equal(\"Get Token Successfully!\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberId\": 4425,\r\n  \"password\": \"@4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7027/api/Auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200!\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"body return is include value!\", function (){\r",
+							"    pm.expect(pm.response.text()).to.include(\"value\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "https://localhost:7027/odata/TattooStickers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body response is as expected\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.TattooStickerName).to.eql(\"Blackwork Rose Tattoo\");\r",
+							"    pm.expect(responseBody.Quantity).to.eql(30);\r",
+							"    // Thêm các kiểm tra khác tùy ý dựa trên các trường thông tin khác của response\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:7027/odata/TattooStickers/5531"
+			},
+			"response": []
+		},
+		{
+			"name": "Add successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 200 (OK)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra phần \"value\" trong response có chứa thông báo \"Add Successfully!\"\r",
+							"pm.test(\"Response contains 'Add Successfully!'\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.value).to.eql(\"Add Successfully!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TattooStickerId\": 5572,\r\n  \"TattooStickerName\": \"a\",\r\n  \"ImportDate\": \"2023-07-24T17:12:35.47+07:00\",\r\n  \"TattooStickerDescription\": \"Quangnvse150550\",\r\n  \"Quantity\": 23,\r\n  \"Price\": 23,\r\n  \"TypeId\": \"RT0003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7027/odata/TattooStickers"
+			},
+			"response": []
+		},
+		{
+			"name": "Add dupplication fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 500 (Internal Server error)\r",
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra phần \"message\" trong response có chứa thông báo \"Add Successfully!\"\r",
+							"pm.test(\"An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.message).to.eql(\"An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TattooStickerId\": 5572,\r\n  \"TattooStickerName\": \"a\",\r\n  \"ImportDate\": \"2023-07-22T17:12:35.47+07:00\",\r\n  \"TattooStickerDescription\": \"Quangnvse150550\",\r\n  \"Quantity\": 23,\r\n  \"Price\": 23,\r\n  \"TypeId\": \"RT000321\"\r\n}"
+				},
+				"url": "https://localhost:7027/odata/TattooStickers"
+			},
+			"response": []
+		},
+		{
+			"name": "Update successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 200 (OK)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra phần \"value\" trong response có chứa thông báo \"Update Successfully!\r",
+							"pm.test(\"Response contains 'Update Successfully!'\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.value).to.eql(\"Update Successfully!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TattooStickerId\": 5572,\r\n  \"TattooStickerName\": \"a\",\r\n  \"ImportDate\": \"2023-07-24T17:12:35.47+07:00\",\r\n  \"TattooStickerDescription\": \"Quangnketchup\",\r\n  \"Quantity\": 23,\r\n  \"Price\": 23,\r\n  \"TypeId\": \"RT0003\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7027/odata/TattooStickers/5572"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 200 (OK)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra phần \"value\" trong response có chứa thông báo \"Delete Successfully!\r",
+							"pm.test(\"Response contains 'Delete Successfully!'\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.value).to.eql(\"Delete Successfully!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:7027/odata/TattooStickers(5572)"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra Status code có phải là 500 (Server error)\r",
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"// Kiểm tra phần \"status\" trong response có giá trị là false\r",
+							"pm.test(\"Response contains 'false'\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.status).to.eql(false);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:7027/odata/TattooStickers(5572)"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{TOKEN}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": ""
+		},
+		{
+			"key": "Url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
