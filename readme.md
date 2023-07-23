@@ -1,11 +1,12 @@
 LƯU Ý: Sau khi clone về thì OPEN WITH NOTEPAD++ hoặc vsCode để Edit các dự kiên sau (Khi chạy với powershell thì chạy trên cùng 1 folder để code tạo đúng file)
-Đối với CodeChung.ps1
-	+Dòng 18 edit lại connectionstring với database
-	+Dòng 170,291 Edit lại Dbcontext nếu đã đổi
-	+Dòng 251 Edit lại Code đã Entity với account cho phù hợp
-	+Dòng 255, 256, 257 Edit lại field để phù hợp table ở dòng 251
-	+Dòng 394 Edit lại Code đã Entity với Relationship cho phù hợp	
-	Mở file Dbcontext đã entity và sửa protected override OnConfiguring như ở bên dưới lại:
+
+Đối với CodeChung.ps1:
++ Chỉnh sửa dòng 18: Thay đổi connectionstring để kết nối với cơ sở dữ liệu của bạn.
++ Chỉnh sửa dòng 170 và 291: Nếu bạn đã đổi Dbcontext thành tên khác, hãy đổi tên Dbcontext ở các dòng này.
++ Chỉnh sửa dòng 251: Thay đổi tên Entity (đối tượng) phù hợp với account của bạn.
++ Chỉnh sửa dòng 255, 256, 257: Điều chỉnh các trường (fields) để phù hợp với bảng (table) đã chỉ định ở dòng 251.
++ Chỉnh sửa dòng 394: Điều chỉnh tên Entity (đối tượng) phù hợp với mối quan hệ (relationship) đã chỉ định.
++ Sau khi đã chỉnh sửa những phần trên, mở file Dbcontext đã entity và sửa đoạn mã sau:
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IServiceCollection services;
