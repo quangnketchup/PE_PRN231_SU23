@@ -40,4 +40,4 @@
 
 -Import TestCase.Postman_collection.json vào thay đổi url và body cho phù hợp => sau đó run collection để chạy test trong tests tab 
 
-<img src="https://user-images.githubusercontent.com/90783531/255421132-a5791677-e5ab-4ac8-a064-7450e430c2d7.png" width="600"/>
+<img src="https://user-images.githubusercontent.com/90783531/255421132-a5791677-e5ab-4ac8-a064-7450e430c2d7.png" text-align="center" width="600"/>
